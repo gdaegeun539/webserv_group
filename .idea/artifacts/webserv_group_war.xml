@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="webserv_group:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>webserv_group</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="webserv_group-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="webserv_group:war exploded" />
+    </root>
+  </artifact>
+</component>
