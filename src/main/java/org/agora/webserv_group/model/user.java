@@ -3,12 +3,11 @@ package org.agora.webserv_group.model;
 import lombok.Data;
 
 @Data
-
-public class user {
+public class User {
     private String uid;
     private String password;
     private String name;
     private String email;
     private String interest;
-    private String admin;
+    private Boolean admin;
 }
