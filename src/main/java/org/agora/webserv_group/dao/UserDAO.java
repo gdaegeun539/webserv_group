@@ -15,17 +15,10 @@ public class UserDAO {
     public UserDAO() {
         connectionMaker = new ConnectionMaker();
     }
-    public void close(){
-        try {
-            pstmt.close();
-            conn.close();
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public boolean idCheck(String id) { //id를 입력하지 않았거나 DB내에 존재하지 않는 id를 입력한 경우 false를 반환
+    public boolean idCheck(String id) throws SQLException { //id를 입력하지 않았거나 DB내에 존재하지 않는 id를 입력한 경우 false를 반환
         String sql = "select EXISTS (select * from usertable where ID= ? limit 1) as success";
+        conn = connectionMaker.makeNewConnection();
         try {
             if(id != null){ //id 입력을한 경우 실행
                 pstmt = conn.prepareStatement(sql);
@@ -36,12 +29,13 @@ public class UserDAO {
         } catch(Exception e) {
             e.printStackTrace();
         } finally {
-            close();
+            pstmt.close();
+            conn.close();
         }
         return false;
     }
 
-    public void addUser(User user){
+    public void addUser(User user) throws SQLException {
         String sql = "insert into user(uid,password,name,interest,admin) values(?,?,?,?,?)";
         String sqlEmail = "insert into usertable(email) values(?)";
         conn = connectionMaker.makeNewConnection();
@@ -55,7 +49,7 @@ public class UserDAO {
             pstmt.setBoolean(5,user.getAdmin());
             pstmt.executeUpdate();
 
-            if(Pattern.matches(emailPattern,user.getEmail())) {
+            if(Pattern.matches(emailPattern,user.getEmail())) { //이메일 형식이 맞으면 데이터베이스에 이메일 저장
                 pstmt = conn.prepareStatement(sqlEmail);
                 pstmt.setString(1,user.getEmail());
                 pstmt.executeUpdate();
@@ -63,11 +57,12 @@ public class UserDAO {
         } catch(SQLException e){
             e.printStackTrace();
         } finally{
-           close();
+           pstmt.close();
+           conn.close();
         }
     }
 
-    public User getUser(String uid){
+    public User getUser(String uid) throws SQLException{ //내 정보 페이지 - 내 정보 보여주기
         conn = connectionMaker.makeNewConnection();
         User u = new User();
         try{
@@ -85,25 +80,27 @@ public class UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally{
-            close();
+            pstmt.close();
+            conn.close();
         }
-        return u;
+        return u; //특정 유저정보 반환
     }
 
-    public void interestUpdate(String i, String uid){
+    public void interestUpdate(String i, String uid) throws SQLException{ //내정보 페이지 - 관심사 수정 기능
         conn = connectionMaker.makeNewConnection();
         try{
-            pstmt = conn.prepareStatement("update usertable set interest = ? where uid = ?");
+            pstmt = conn.prepareStatement("update usertable set interest = ? where uid = ?"); //입력된 관심사로 수정
             pstmt.setString(1,i);
             pstmt.setString(2,uid);
         }catch(SQLException e){
             e.printStackTrace();
         }finally{
-            close();
+            pstmt.close();
+            conn.close();
         }
     }
 
-    public String findId(String name, String email){
+    public String findId(String name, String email) throws SQLException{ //로그인페이지 - 아이디 찾기
         conn = connectionMaker.makeNewConnection();
         String uid = "";
         try{
@@ -112,16 +109,17 @@ public class UserDAO {
             pstmt.setString(2,email);
             ResultSet rs = pstmt.executeQuery();
             rs.next();
-            uid = rs.getString("uid");
+            uid = rs.getString("uid"); //입력된 이름과 이메일과 연관된 id 저장
         }catch (SQLException e) {
             e.printStackTrace();
         } finally{
-            close();
+            pstmt.close();
+            conn.close();
         }
-        return uid;
+        return uid; //유저 아이디 반환
     }
 
-    public String findPassword(String uid){
+    public String findPassword(String uid) throws SQLException{ //로그인 페이지 - 비밀번호 찾기
         conn = connectionMaker.makeNewConnection();
         String password = "";
         try{
@@ -129,12 +127,13 @@ public class UserDAO {
             pstmt.setString(1,uid);
             ResultSet rs = pstmt.executeQuery();
             rs.next();
-            password = rs.getString("password");
+            password = rs.getString("password"); //id와 연관된 비밀번호 저장
         }catch (SQLException e) {
             e.printStackTrace();
         } finally{
-            close();
+            pstmt.close();
+            conn.close();
         }
-        return password;
+        return password; //비밀번호 반환
     }
 }
