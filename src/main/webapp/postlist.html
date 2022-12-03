@@ -28,29 +28,69 @@
   </head>
   <body>
     <div class="container">
-      <div class="btn-group">
-        <button
-          class="btn btn-outline-secondary btn-lg dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Large button
-        </button>
-        <ul class="dropdown-menu">
-          <li>임시로 하나</li>
-        </ul>
-      </div>
-      <div class="card mb-4">
-        <div class="card-header d-flex">
-          <h4 class="me-5">모집중</h4>
-          <h3 class="ms-5">모임 제목</h3>
+      <div class="row d-flex align-items-center justify-content-between mb-5 mx-1 px-1 py-1 category-bar">
+        <div class="col-md-auto">
+          <div class="btn-group">
+            <button
+                    class="btn btn-outline-secondary btn-lg dropdown-toggle"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+            >
+              카테고리 제목
+            </button>
+            <ul class="dropdown-menu">
+              <li>임시 카테고리1</li>
+              <li>임시 카테고리2</li>
+              <li>임시 카테고리3</li>
+            </ul>
+          </div>
         </div>
-        <div class="card-body">
-          You can put anything you want inside of these side widgets. They are
-          easy to use, and feature the Bootstrap 5 card component!
+        <div class="col">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="제목을 입력해 검색" aria-label="search input" aria-describedby="btn-search">
+            <button class="btn btn-outline-secondary" type="button" id="btn-search">검색</button>
+          </div>
+        </div>
+        <div class="col-md-auto">
+          <button type="button" class="btn btn-outline-secondary">글쓰기</button>
+        </div>
+
+
+      </div>
+
+      <div class="row px-1 py-1 mt-2">
+        <div class="col">
+          <div class="card mb-4">
+            <div class="card-header d-flex align-items-end">
+              <h4 class="px-1" >모집중</h4>
+              <h3 class="ms-3 px-1" >모임 제목</h3>
+            </div>
+            <div class="card-body">
+              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>
+              <p class="px-5 py-3">본문 나가주세요</p>
+              <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="row px-1 py-1 mt-2">
+        <div class="col">
+          <div class="card mb-4">
+            <div class="card-header d-flex align-items-end">
+              <h4 class="px-1" >모집중</h4>
+              <h3 class="ms-3 px-1" >모임 제목</h3>
+            </div>
+            <div class="card-body">
+              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>
+              <p class="px-5 py-3">본문 나가주세요</p>
+              <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Bootstrap core JS-->
