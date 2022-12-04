@@ -2,15 +2,15 @@ package org.agora.webserv_group.model;
 
 import lombok.Data;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
+import java.util.ArrayList;
 
 @Data
 public class Post {
     private int pid;
     private String writer;
     private int capacity;
-    private List<String> people;
+    private ArrayList<String> people;
     private Date created_at;
     private Date updated_at;
     private String category;
