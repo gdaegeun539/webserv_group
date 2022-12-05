@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 
-@WebServlet(name = "UserController", value = "/UserController")
-public class UserController extends HttpServlet {
+@WebServlet(name = "UserController", value = "/user-controller")
+public class UserController extends HttpServlet implements ControllerInterface {
     private UserDAO dao;
     private ServletContext ctx;
     // 웹 리소스 기본 경로 지정
@@ -24,7 +24,7 @@ public class UserController extends HttpServlet {
         ctx = getServletContext();
     }
 
-    protected void service(HttpServletRequest request, HttpServletResponse response)
+    public void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");

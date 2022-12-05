@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/post.nhn")
-public class PostController extends HttpServlet {
+public class PostController extends HttpServlet implements ControllerInterface {
     private static final long serialVersionUID = 1L;
 
     private PostDAO dao;
@@ -34,7 +34,7 @@ public class PostController extends HttpServlet {
         ctx = getServletContext();
     }
 
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
 
