@@ -12,13 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/post.nhn")
+@WebServlet(name = "PostController", value = "/post")
 public class PostController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +25,7 @@ public class PostController extends HttpServlet {
     private ServletContext ctx;
 
     // 웹 리소스 기본 경로 지정
-    private final String START_PAGE = "ch10/newsList.jsp";
+    private final String START_PAGE = "postlist.jsp";
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -44,7 +43,7 @@ public class PostController extends HttpServlet {
 
         // action 파라미터 없이 접근한 경우
         if (action == null) {
-            action = "listPost";
+            action = "getPosts";
         }
 
         try {
@@ -86,7 +85,7 @@ public class PostController extends HttpServlet {
             return getPosts(request);
         }
 
-        return "redirect:/post.nhn?action=listPost";
+        return "redirect:/post?action=getPosts";
 
     }
 
@@ -97,10 +96,10 @@ public class PostController extends HttpServlet {
             request.setAttribute("PostList", list);
         } catch (Exception e) {
             e.printStackTrace();
-            ctx.log("뉴스 목록 생성 과정에서 문제 발생!!");
-            request.setAttribute("error", "뉴스 목록이 정상적으로 처리되지 않았습니다!!");
+            ctx.log("게시물 목록 생성 과정에서 문제 발생!!");
+            request.setAttribute("error", "게시물 목록이 정상적으로 처리되지 않았습니다!!");
         }
-        return "ch10/PostList.jsp";
+        return "postlist.jsp";
     }
 
     public String getPost(HttpServletRequest request) {
@@ -113,7 +112,7 @@ public class PostController extends HttpServlet {
             ctx.log("뉴스를 가져오는 과정에서 문제 발생!!");
             request.setAttribute("error", "뉴스를 정상적으로 가져오지 못했습니다!!");
         }
-        return "ch10/PostView.jsp";
+        return "detail_page.jsp";
     }
 
     public String deletePost(HttpServletRequest request) {
@@ -127,7 +126,7 @@ public class PostController extends HttpServlet {
             return getPosts(request);
         }
 
-        return "redirect:/Post.nhn?action=listPost";
+        return "redirect:/Post.nhn?action=getPosts";
     }
 
     public String updatePost(HttpServletRequest request) {
@@ -154,6 +153,6 @@ public class PostController extends HttpServlet {
             return getPosts(request);
         }
 
-        return "redirect:/Post.nhn?action=listPost";
+        return "redirect:/Post.nhn?action=getPosts";
     }
 }
