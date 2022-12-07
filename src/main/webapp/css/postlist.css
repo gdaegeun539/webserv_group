@@ -7,6 +7,14 @@
 .category-bar{
     border-radius: 4px 4px 4px 4px;
     border: 1px solid #d2d2d2;
-    /*box-shadow: 0 0 0 1px #222222 inset;*/
     background-color: #f7f7f7;
+}
+
+/* bootstrap pagination 색상 변경: $gray-xxx 계열 */
+.pagination{
+    --bs-pagintion-bg: white;
+    --bs-pagination-color: #343a40;
+    --bs-pagination-active-bg: #6c757d;
+    --bs-pagination-active-border-color: #6c757d;
+    --bs-pagination-hover-color: #212529;
 }
