@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 
-@WebServlet(name = "UserController", value = "/UserController")
+@WebServlet(name = "UserController", value = "/user")
 public class UserController extends HttpServlet {
     private UserDAO dao;
     private ServletContext ctx;
@@ -105,14 +105,16 @@ public class UserController extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String id = "";
+
         try {
             id = dao.findId(name, email); //수정 함수 실행
+            request.setAttribute("id", id);
         } catch(Exception e) {
             e.printStackTrace();
             ctx.log("아이디 찾는 과정에서 문제 발생!!");
             request.setAttribute("error", "아이디를 찾는 과정에 문제 발생!!");
         }
-        return id; //반환 값 지정 필요
+        return ""; //반환 값 지정 필요
     }
 
     public String findPassword(HttpServletRequest request) { //수정하기 버튼 입력시 실행된다
@@ -120,12 +122,13 @@ public class UserController extends HttpServlet {
         String password = "";
         try {
             password = dao.findPassword(uid); //수정 함수 실행
+            request.setAttribute("password", password);
         } catch(Exception e) {
             e.printStackTrace();
             ctx.log("비밀번호를 찾는 과정에서 문제 발생!!");
             request.setAttribute("error", "비밀번호를 찾는 과정에 문제 발생!!");
         }
-        return password; //반환 값 지정 필요
+        return ""; //반환 값 지정 필요
     }
 
     @Override
