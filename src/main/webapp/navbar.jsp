@@ -1,8 +1,15 @@
-<%-- Created by IntelliJ IDEA. User: gdaegeun539 Date: 2022-11-30 Time: 오전
-10:00 To change this template use File | Settings | File Templates. --%> <%@
-page contentType="text/html;charset=UTF-8" language="java" %> <%-- 폰트 적용 css
+<%--
+Created by IntelliJ IDEA.
+User: gdaegeun539
+Date: 2022-11-30
+Time: 오전 10:00
+To change this template use File | Settings | File Templates.
 --%>
+<%@page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%-- 폰트 적용 css--%>
 <link rel="stylesheet" href="css/navbar.css" />
+
 <!-- Responsive navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
   <div class="container">

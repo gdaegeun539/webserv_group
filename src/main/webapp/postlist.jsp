@@ -1,20 +1,20 @@
-<!--
+<%--
   Created by IntelliJ IDEA.
   User: gdaegeun539
   Date: 2022-11-30
   Time: 오전 10:30
   To change this template use File | Settings | File Templates.
-  나중에 여기 jsp 주석으로 바꿀 것
--->
+--%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>테스트</title>
+    <title>아고라</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
@@ -27,8 +27,10 @@
     <link href="css/postlist.css" rel="stylesheet" />
   </head>
   <body>
+    <jsp:include page="navbar.jsp"/>
+    <%--  페이지 컨텐츠  --%>
     <div class="container">
-      <div class="row d-flex align-items-center justify-content-between mb-5 mx-1 px-1 py-1 category-bar">
+      <div class="row d-flex align-items-center justify-content-between my-5 mx-1 px-1 py-1 category-bar">
         <div class="col-md-auto">
           <div class="btn-group">
             <button
@@ -91,8 +93,23 @@
         </div>
       </div>
 
+      <%-- Pagination --%>
+      <nav aria-label="Pagination">
+        <hr class="my-0" />
+        <ul class="pagination justify-content-center my-4">
+          <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;&lt;</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
+          <li class="page-item"><a class="page-link" href="#!">2</a></li>
+          <li class="page-item"><a class="page-link" href="#!">3</a></li>
+          <li class="page-item disabled"><a class="page-link" href="#!">번호 동적 생성</a></li>
+          <li class="page-item"><a class="page-link" href="#!">15</a></li>
+          <li class="page-item"><a class="page-link" href="#!">&gt;&gt;</a></li>
+        </ul>
+      </nav>
+
     </div>
 
+    <jsp:include page="footer.jsp"/>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/postlist.js"></script>
