@@ -26,10 +26,10 @@
     <%-- 검색 창 --%>
     <div class="card text-white bg-secondary my-5 py-4 text-center">
         <div class="card-body">
-            <h2 class="card-title mb-3">모임을 찾아보세요</h2>
+            <h2 class="card-title mb-3" id="test-id">모임을 찾아보세요</h2>
             <div class="input-group mb-3 px-5">
-                <input type="text" class="form-control" placeholder="게시글 제목을 입력해보세요" aria-label="게시글 제목 입력" aria-describedby="search-button" id="search-input-id">
-                <button class="btn btn-dark" type="button" id="search-button">검색</button>
+                <input type="text" class="form-control" placeholder="게시글 제목을 입력해보세요" aria-label="게시글 제목 입력" aria-describedby="search-button" id="search-input-id" />
+                <button class="btn btn-dark" type="button" id="search-button" onclick="onclick_link_innerval('post', 'search', 'pname', 'search-input-id');">검색</button>
             </div>
         </div>
     </div>
@@ -37,17 +37,17 @@
     <div class="row gx-4 gx-lg-5">
         <div class="col-md-4 mb-5">
             <div class="card h-100">
-                <div class="card-body clickable-div" onclick="onclick_link(`postlist`)">
-                    <h2 class="card-title">Card One</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                <div class="card-body clickable-div" onclick="onclick_link('post', 'category', 'cname', '카테고리1');">
+                    <h2 class="card-title">카테고리1</h2>
+                    <p class="card-text">카테고리1의 설명이 들어가는 자리입니다.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Card Two</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod tenetur ex natus at dolorem enim! Nesciunt pariatur voluptatem sunt quam eaque, vel, non in id dolore voluptates quos eligendi labore.</p>
+                    <h2 class="card-title">카테고리2</h2>
+                    <p class="card-text">카테고리2의 설명이 들어가는 자리입니다.</p>
                 </div>
 
             </div>
@@ -55,35 +55,34 @@
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Card Three</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                    <h2 class="card-title">카테고리3</h2>
+                    <p class="card-text">카테고리3의 설명이 들어가는 자리입니다.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Card Four</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                    <h2 class="card-title">카테고리4</h2>
+                    <p class="card-text">카테고리의 설명이 들어가는 자리입니다.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body">
-                    <h2 class="card-title">Card Five</h2>
-                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem magni quas ex numquam, maxime minus quam molestias corporis quod, ea minima accusamus.</p>
+                    <h2 class="card-title">카테고리5</h2>
+                    <p class="card-text">카테고리의 설명이 들어가는 자리입니다.</p>
                 </div>
             </div>
         </div>
 
     </div>
-    <div id="value">getTestValue</div>
 </div>
 <jsp:include page="footer.jsp"/>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/index.js"></script>
+<script src="js/index.js?ver=0"></script>
 
 </body>
 </html>

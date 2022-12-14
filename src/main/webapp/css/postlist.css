@@ -18,3 +18,7 @@
     --bs-pagination-active-border-color: #6c757d;
     --bs-pagination-hover-color: #212529;
 }
+
+.clickable-div{
+    cursor: pointer;
+}

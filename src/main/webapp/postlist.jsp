@@ -42,20 +42,22 @@
               카테고리 제목
             </button>
             <ul class="dropdown-menu">
-              <li>임시 카테고리1</li>
-              <li>임시 카테고리2</li>
-              <li>임시 카테고리3</li>
+              <li>카테고리1</li>
+              <li>카테고리2</li>
+              <li>카테고리3</li>
+              <li>카테고리4</li>
+              <li>카테고리5</li>
             </ul>
           </div>
         </div>
         <div class="col">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="제목을 입력해 검색" aria-label="search input" aria-describedby="btn-search">
-            <button class="btn btn-outline-secondary" type="button" id="btn-search">검색</button>
+            <input type="text" class="form-control" placeholder="제목을 입력해 검색" aria-label="search input" aria-describedby="btn-search" id="search-value">
+            <button class="btn btn-outline-secondary" type="button" id="btn-search" onclick="onclick_link_innerval('post', 'search', 'pname', 'search-value');">검색</button>
           </div>
         </div>
         <div class="col-md-auto">
-          <button type="button" class="btn btn-outline-secondary">글쓰기</button>
+          <button type="button" class="btn btn-outline-secondary" onclick="location.href = 'post_register.jsp'">글쓰기</button>
         </div>
 
 
@@ -63,13 +65,14 @@
 
       <div class="row px-1 py-1 mt-2">
         <div class="col">
-          <div class="card mb-4">
+          <div class="card mb-4 clickable-div" onclick="onclick_link('post', 'detail', 'pid', 'el로 삽입예정');">
             <div class="card-header d-flex align-items-end">
               <h4 class="px-1" >모집중</h4>
               <h3 class="ms-3 px-1" >모임 제목</h3>
             </div>
             <div class="card-body">
-              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>
+<%--              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>--%>
+                <p class="me-1 list_detail"><span>지역</span></p>
               <p class="px-5 py-3">본문 나가주세요</p>
               <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
             </div>
@@ -77,21 +80,22 @@
         </div>
       </div>
 
-      <div class="row px-1 py-1 mt-2">
-        <div class="col">
-          <div class="card mb-4">
-            <div class="card-header d-flex align-items-end">
-              <h4 class="px-1" >모집중</h4>
-              <h3 class="ms-3 px-1" >모임 제목</h3>
-            </div>
-            <div class="card-body">
-              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>
-              <p class="px-5 py-3">본문 나가주세요</p>
-              <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
+<%--      <div class="row px-1 py-1 mt-2">--%>
+<%--        <div class="col">--%>
+<%--          <div class="card mb-4">--%>
+<%--            <div class="card-header d-flex align-items-end">--%>
+<%--              <h4 class="px-1" >모집중</h4>--%>
+<%--              <h3 class="ms-3 px-1" >모임 제목</h3>--%>
+<%--            </div>--%>
+<%--            <div class="card-body">--%>
+<%--&lt;%&ndash;              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>&ndash;%&gt;--%>
+<%--                <p class="me-1 list_detail"><span>지역</span></p>--%>
+<%--              <p class="px-5 py-3">본문 나가주세요</p>--%>
+<%--              <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>--%>
+<%--            </div>--%>
+<%--          </div>--%>
+<%--        </div>--%>
+<%--      </div>--%>
 
       <%-- Pagination --%>
       <nav aria-label="Pagination">
@@ -112,6 +116,6 @@
     <jsp:include page="footer.jsp"/>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/postlist.js"></script>
+    <script src="js/postlist.js?ver=1"></script>
   </body>
 </html>

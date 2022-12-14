@@ -13,12 +13,12 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="navbar.jsp">
+<jsp:include page="navbar.jsp" />
 <div class="container" style="padding-top: 150px;">
 <!-- 헤드라인 -->
   <div class="d-grid gap-2 col-6 mx-auto">
     <figure class="text-center">
-      <h2><p><strong>로그인</strong></p></h2>
+      <h2><strong>로그인</strong></h2>
       <div class="d-grid gap-2 col-6 mx-auto">
         <hr>
       </div>
