@@ -82,7 +82,7 @@ public class PostDAO {
         return posts;
     }
 
-    public List<Post> getMyGroupPostsByUid(int uid) throws SQLException {
+    public List<Post> getMyGroupPostsByUid(String uid) throws SQLException {
         Connection conn = connectionMaker.makeNewConnection();
         String uidStr = "%" + uid + "%";
         String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where people LIKE ?";
@@ -94,11 +94,11 @@ public class PostDAO {
         return posts;
     }
 
-    public List<Post> getPostsByUid(int uid) throws SQLException {
+    public List<Post> getPostsByWriter(String writer) throws SQLException {
         Connection conn = connectionMaker.makeNewConnection();
-        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where uid = ?";
+        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where writer = ?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, uid);
+        pstmt.setString(1, writer);
         ResultSet rs = pstmt.executeQuery();
         List<Post> posts = getPostsFromRs(rs);
 
