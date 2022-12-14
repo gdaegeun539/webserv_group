@@ -24,7 +24,7 @@
       integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
       crossorigin="anonymous"
     />
-    <link href="css/postlist.css" rel="stylesheet" />
+    <link href="css/postlist.css?ver=0" rel="stylesheet" />
   </head>
   <body>
     <jsp:include page="navbar.jsp"/>
@@ -42,11 +42,11 @@
               카테고리 제목
             </button>
             <ul class="dropdown-menu">
-              <li>카테고리1</li>
-              <li>카테고리2</li>
-              <li>카테고리3</li>
-              <li>카테고리4</li>
-              <li>카테고리5</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리1')">카테고리1</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리2')">카테고리2</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리3')">카테고리3</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리4')">카테고리4</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리5')">카테고리5</li>
             </ul>
           </div>
         </div>
@@ -65,7 +65,7 @@
 
       <div class="row px-1 py-1 mt-2">
         <div class="col">
-          <div class="card mb-4 clickable-div" onclick="onclick_link('post', 'detail', 'pid', 'el로 삽입예정');">
+          <div class="card mb-4 clickable-tag" onclick="onclick_link('post', 'detail', 'pid', 'el로 삽입예정');">
             <div class="card-header d-flex align-items-end">
               <h4 class="px-1" >모집중</h4>
               <h3 class="ms-3 px-1" >모임 제목</h3>
@@ -116,6 +116,6 @@
     <jsp:include page="footer.jsp"/>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/postlist.js?ver=1"></script>
+    <script src="js/postlist.js?ver=0"></script>
   </body>
 </html>
