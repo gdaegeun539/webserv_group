@@ -73,6 +73,37 @@ public class PostController extends HttpServlet {
         }
     }
 
+    public String search(HttpServletRequest request) {
+        String title = request.getParameter("title");
+        try {
+            List<Post> posts = dao.getPostsByTitle(title);
+            request.setAttribute("PostList", posts);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ctx.log("게시물 목록 생성 과정에서 문제 발생!!");
+            request.setAttribute("error", "게시물 목록이 정상적으로 처리되지 않았습니다!!");
+        }
+        return "postlist.jsp";
+    }
+
+    public String category(HttpServletRequest request) {
+        String category = request.getParameter("category");
+        try {
+            List<Post> posts;
+            if (category == "all") {
+                posts = dao.getPosts();
+            } else {
+                posts = dao.getPostsByCategory(category);
+            }
+            request.setAttribute("PostList", posts);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ctx.log("게시물 목록 생성 과정에서 문제 발생!!");
+            request.setAttribute("error", "게시물 목록이 정상적으로 처리되지 않았습니다!!");
+        }
+        return "postlist.jsp";
+    }
+
     public String addPost(HttpServletRequest request) {
         Post post = new Post();
         try {
@@ -105,7 +136,7 @@ public class PostController extends HttpServlet {
     public String getPost(HttpServletRequest request) {
         int pid = Integer.parseInt(request.getParameter("pid"));
         try {
-            Post post = dao.getPost(pid);
+            Post post = dao.getPostById(pid);
             request.setAttribute("Post", post);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -136,7 +167,7 @@ public class PostController extends HttpServlet {
             BeanUtils.populate(inputPost, request.getParameterMap());
             int pid = inputPost.getPid();
             // 현재 Post
-            Post nowPost = dao.getPost(pid);
+            Post nowPost = dao.getPostById(pid);
             // 입력 Post 와 현재 Post 비교
             if (inputPost.getTitle() == null) {
                 nowPost.setTitle(inputPost.getTitle());

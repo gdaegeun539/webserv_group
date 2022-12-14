@@ -40,51 +40,69 @@ public class PostDAO {
 
     public List<Post> getPosts() throws Exception {
         Connection conn = connectionMaker.makeNewConnection();
-        List<Post> posts = new ArrayList<>();
-        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from news";
+        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         ResultSet rs = pstmt.executeQuery();
-        try(conn; pstmt; rs) {
-            while(rs.next()) {
-                Post post = new Post();
-                post.setPid(rs.getInt("pid"));
-                post.setWriter(rs.getString("writer"));
-                post.setCapacity(rs.getInt("capacity"));
-                post.setPeople(gson.fromJson(rs.getString("people"), listType));
-                post.setCategory(rs.getString("category"));
-                post.setTitle(rs.getString("title"));
-                post.setIntroduction(rs.getString("introduction"));
-                post.setContent(rs.getString("content"));
-                post.setLocation(rs.getString("location"));
-                post.setIs_end(rs.getBoolean("is_end"));
-                posts.add(post);
-            }
-            return posts;
-        }
+        List<Post> posts = getPostsFromRs(rs);
+
+        return posts;
     }
 
-    public Post getPost(int pid) throws SQLException {
+    public List<Post> getPostsByTitle(String title) throws SQLException {
         Connection conn = connectionMaker.makeNewConnection();
-        Post post = new Post();
+        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where title=?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, title);
+        ResultSet rs = pstmt.executeQuery();
+        List<Post> posts = getPostsFromRs(rs);
+
+        return posts;
+    }
+
+
+    public Post getPostById(int pid) throws SQLException {
+        Connection conn = connectionMaker.makeNewConnection();
         String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where pid=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setInt(1, pid);
         ResultSet rs = pstmt.executeQuery();
-        rs.next();
-        try(conn; pstmt; rs) {
-            post.setPid(rs.getInt("pid"));
-            post.setWriter(rs.getString("writer"));
-            post.setCapacity(rs.getInt("capacity"));
-            post.setPeople(gson.fromJson(rs.getString("people"), listType));
-            post.setCategory(rs.getString("category"));
-            post.setTitle(rs.getString("title"));
-            post.setIntroduction(rs.getString("introduction"));
-            post.setContent(rs.getString("content"));
-            post.setLocation(rs.getString("location"));
-            post.setIs_end(rs.getBoolean("is_end"));
-            pstmt.executeQuery();
-            return post;
-        }
+        List<Post> posts = getPostsFromRs(rs);
+
+        return posts.get(0);
+    }
+
+    public List<Post> getPostsByCategory(String category) throws SQLException {
+        Connection conn = connectionMaker.makeNewConnection();
+        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where category=?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, category);
+        ResultSet rs = pstmt.executeQuery();
+        List<Post> posts = getPostsFromRs(rs);
+
+        return posts;
+    }
+
+    public List<Post> getMyGroupPostsByUid(int uid) throws SQLException {
+        Connection conn = connectionMaker.makeNewConnection();
+        String uidStr = "%" + uid + "%";
+        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where people LIKE ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, uidStr);
+        ResultSet rs = pstmt.executeQuery();
+        List<Post> posts = getPostsFromRs(rs);
+
+        return posts;
+    }
+
+    public List<Post> getPostsByUid(int uid) throws SQLException {
+        Connection conn = connectionMaker.makeNewConnection();
+        String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where uid = ?";
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, uid);
+        ResultSet rs = pstmt.executeQuery();
+        List<Post> posts = getPostsFromRs(rs);
+
+        return posts;
     }
 
     public void updatePost(Post post) throws SQLException {
@@ -113,6 +131,28 @@ public class PostDAO {
             if(pstmt.executeUpdate() == 0) {
                 throw new SQLException("DB에러");
             }
+        }
+    }
+
+
+    private List<Post> getPostsFromRs(ResultSet rs) throws SQLException {
+        List<Post> posts = new ArrayList<>();
+        try(rs) {
+            while(rs.next()) {
+                Post post = new Post();
+                post.setPid(rs.getInt("pid"));
+                post.setWriter(rs.getString("writer"));
+                post.setCapacity(rs.getInt("capacity"));
+                post.setPeople(gson.fromJson(rs.getString("people"), listType));
+                post.setCategory(rs.getString("category"));
+                post.setTitle(rs.getString("title"));
+                post.setIntroduction(rs.getString("introduction"));
+                post.setContent(rs.getString("content"));
+                post.setLocation(rs.getString("location"));
+                post.setIs_end(rs.getBoolean("is_end"));
+                posts.add(post);
+            }
+            return posts;
         }
     }
 }
