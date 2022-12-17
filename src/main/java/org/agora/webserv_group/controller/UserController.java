@@ -1,6 +1,8 @@
 package org.agora.webserv_group.controller;
 
+import org.agora.webserv_group.dao.PostDAO;
 import org.agora.webserv_group.dao.UserDAO;
+import org.agora.webserv_group.model.Post;
 import org.agora.webserv_group.model.User;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -10,10 +12,12 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(name = "UserController", value = "/user")
 public class UserController extends HttpServlet {
     private UserDAO dao;
+    private PostDAO postdao;
     private ServletContext ctx;
     // 웹 리소스 기본 경로 지정
     private final String START_PAGE = ""; //설정해야함
@@ -29,6 +33,7 @@ public class UserController extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
         dao = new UserDAO();
+        postdao = new PostDAO();
         // 자바 리플렉션을 사용해 if, switch 없이 요청에 따라 구현 메서드가 실행되도록 함. 즉 action이름과 동일한 메서드를 호출
         Method m;
         String view = null;
@@ -62,73 +67,91 @@ public class UserController extends HttpServlet {
 
     }
 
-    public void addUser(HttpServletRequest request) { //반환 값 필요시 지정
+    public String register(HttpServletRequest request) { //반환 값 필요시 지정
         User n = new User();
         try {
             // 입력값을 User 객체로 매핑
             BeanUtils.populate(n, request.getParameterMap());
             dao.addUser(n);
+            request.setAttribute("login", "회원가입이 정상적으로 완료되었습니다.");
         } catch (Exception e) {
             e.printStackTrace();
             ctx.log("유저 추가 과정에서 문제 발생!!");
             request.setAttribute("error", "유저가 정상적으로 등록되지 않았습니다!!");
         }
+        return "index.jsp";
     }
 
-    public String getUser(HttpServletRequest request) throws SQLException {
+    public String mypage(HttpServletRequest request) throws SQLException { //유저 리스트부분 추가 필요
         String uid = request.getParameter("uid");
+        List<Post> group, mypost;
+
         try {
-            User n = dao.getUser(uid);
-            request.setAttribute("User", n);
+            User n = dao.getUser(uid); //내 정보
+            group = postdao.getMyGroupPostsByUid(uid); //내가 속한 그룹의 포스트
+            mypost = postdao.getPostsByWriter(uid); //내가 작성한 포스트
+
+            request.setAttribute("user", n);
+            request.setAttribute("group", group);
+            request.setAttribute("mypost", mypost);
+
         } catch (SQLException e) {
             e.printStackTrace();
             ctx.log("유저 정보를 가져오는 과정에서 문제 발생!!");
             request.setAttribute("error", "유저 정보를 정상적으로 가져오지 못했습니다!!");
         }
-        return ""; //반환 값 지정 필요
+        return "mypage.jsp"; //유저 생성 글과 유저 포함 글로 전달
     }
 
 
-    public void interestUpdate(HttpServletRequest request) { //수정 버튼 입력시 실행된다
-        String interest = request.getParameter("interest");
+    public String login(HttpServletRequest request) { //수정 버튼 입력시 실행된다
         String uid = request.getParameter("uid");
+        String password = request.getParameter("password");
         try {
-            dao.interestUpdate(interest, uid);
+            boolean login = dao.login(uid,password);
+            if(login){
+                request.setAttribute("login","로그인 되었습니다.");
+            }
+            else{
+                request.setAttribute("login","아이디 또는 비밀번호가 틀립니다.");
+                return "login.jsp"; //db에 없는 경우
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            ctx.log("관심사 수정 과정에서 문제 발생!!");
-            request.setAttribute("error", "관심사 수정을 하지 못했습니다!!");
+            ctx.log("로그인 과정에서 문제 발생!!");
+            request.setAttribute("error", "로그인을 하지 못했습니다!!");
         }
+        return "index.jsp"; //db에 존재하는 경우
     }
 
-    public String findId(HttpServletRequest request) { //수정하기 버튼 입력시 실행된다
+    public String findid(HttpServletRequest request) { //아이디 찾기 버튼 입력시 실행된다
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String id = "";
 
         try {
-            id = dao.findId(name, email); //수정 함수 실행
+            id = dao.findId(name, email); //아디이 찾기 함수 실행
             request.setAttribute("id", id);
         } catch(Exception e) {
             e.printStackTrace();
             ctx.log("아이디 찾는 과정에서 문제 발생!!");
             request.setAttribute("error", "아이디를 찾는 과정에 문제 발생!!");
         }
-        return ""; //반환 값 지정 필요
+        return "login.jsp";
     }
 
-    public String findPassword(HttpServletRequest request) { //수정하기 버튼 입력시 실행된다
+    public String findpw(HttpServletRequest request) { //비밀번호 찾기 버튼 입력시 실행된다
         String uid = request.getParameter("uid");
         String password = "";
         try {
-            password = dao.findPassword(uid); //수정 함수 실행
+            password = dao.findPassword(uid); //비밀 번호 찾기 함수 실행
             request.setAttribute("password", password);
         } catch(Exception e) {
             e.printStackTrace();
             ctx.log("비밀번호를 찾는 과정에서 문제 발생!!");
             request.setAttribute("error", "비밀번호를 찾는 과정에 문제 발생!!");
         }
-        return ""; //반환 값 지정 필요
+        return "login.jsp";
     }
 
     @Override

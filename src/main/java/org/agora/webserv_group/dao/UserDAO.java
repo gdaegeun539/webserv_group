@@ -86,18 +86,21 @@ public class UserDAO {
         return u; //특정 유저정보 반환
     }
 
-    public void interestUpdate(String i, String uid) throws SQLException{ //내정보 페이지 - 관심사 수정 기능
+    public boolean login(String uid, String password) throws SQLException{ //로그인
         conn = connectionMaker.makeNewConnection();
         try{
-            pstmt = conn.prepareStatement("update usertable set interest = ? where uid = ?"); //입력된 관심사로 수정
-            pstmt.setString(1,i);
-            pstmt.setString(2,uid);
+            pstmt = conn.prepareStatement("select * from usertable where uid = ? and password = ?");
+            pstmt.setString(1,uid);
+            pstmt.setString(2,password);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs == null){ return false;}
         }catch(SQLException e){
             e.printStackTrace();
         }finally{
             pstmt.close();
             conn.close();
         }
+        return true;
     }
 
     public String findId(String name, String email) throws SQLException{ //로그인페이지 - 아이디 찾기
