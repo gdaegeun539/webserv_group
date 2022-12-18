@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -39,6 +40,7 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
             >
+<%--              동적 렌더링 필요부분: 컨트롤러에서 데이터 넘겨주는지 확인 필요 --%>
               카테고리 제목
             </button>
             <ul class="dropdown-menu">
@@ -63,22 +65,37 @@
 
       </div>
 
-      <div class="row px-1 py-1 mt-2">
-        <div class="col">
-          <div class="card mb-4 clickable-tag" onclick="onclick_link('post', 'detail', 'pid', 'el로 삽입예정');">
-            <div class="card-header d-flex align-items-end">
-              <h4 class="px-1" >모집중</h4>
-              <h3 class="ms-3 px-1" >모임 제목</h3>
+<%--      동적 렌더링 필요부분: 컨트롤러 연동 후 테스트 필요 --%>
+        <c:forEach var="post" items="${posts}">
+            <div class="row px-1 py-1 mt-2">
+                <div class="col">
+                    <div class="card mb-4 clickable-tag"
+                         onclick="onclick_link('post', 'detail', 'pid', 'el로 삽입예정');">
+                        <div class="card-header d-flex align-items-end">
+                            <h4 class="px-1" >
+                                <c:choose>
+                                    <c:when test="${post.getIs_end() == false}">
+                                        <span class="badge bg-success">모집중</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="badge bg-danger">모집완료</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </h4>
+                            <h3 class="ms-3 px-1" >${post.getTitle()}</h3>
+                        </div>
+                        <div class="card-body">
+                                <%--              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>--%>
+                            <p class="me-1 list_detail"><span>${post.getLocation()}</span></p>
+                            <p class="px-5 py-3">${post.getIntroduction()}</p>
+                            <p class="d-flex justify-content-between list_detail">
+                                <span>${post.getPeople().size()}/${post.getCapacity()}명</span><span>??년??월??일(DB에 정보여부?)</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-<%--              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>--%>
-                <p class="me-1 list_detail"><span>지역</span></p>
-              <p class="px-5 py-3">본문 나가주세요</p>
-              <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
+        </c:forEach>
 
 <%--      <div class="row px-1 py-1 mt-2">--%>
 <%--        <div class="col">--%>
@@ -102,12 +119,12 @@
         <hr class="my-0" />
         <ul class="pagination justify-content-center my-4">
           <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;&lt;</a></li>
-          <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-          <li class="page-item"><a class="page-link" href="#!">2</a></li>
-          <li class="page-item"><a class="page-link" href="#!">3</a></li>
-          <li class="page-item disabled"><a class="page-link" href="#!">번호 동적 생성</a></li>
-          <li class="page-item"><a class="page-link" href="#!">15</a></li>
-          <li class="page-item"><a class="page-link" href="#!">&gt;&gt;</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item disabled"><a class="page-link" href="#">번호 동적 생성</a></li>
+          <li class="page-item"><a class="page-link" href="#">15</a></li>
+          <li class="page-item"><a class="page-link" href="#">&gt;&gt;</a></li>
         </ul>
       </nav>
 

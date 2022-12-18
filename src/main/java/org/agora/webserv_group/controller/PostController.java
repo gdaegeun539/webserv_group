@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet(name = "PostController", value = "/post")
 public class PostController extends HttpServlet {
@@ -90,7 +91,7 @@ public class PostController extends HttpServlet {
         String category = request.getParameter("category");
         try {
             List<Post> posts;
-            if (category == "all") {
+            if (Objects.equals(category, "all")) {
                 posts = dao.getPosts();
             } else {
                 posts = dao.getPostsByCategory(category);
