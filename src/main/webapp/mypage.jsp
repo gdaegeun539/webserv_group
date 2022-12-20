@@ -12,42 +12,55 @@
 </head>
 <body>
 <jsp:include page="navbar.jsp"/>
-  <div class="wrap" style="margin: 10px">
-    <h1>내 정보</h1>
+<div class="row px-1 py-1 mt-2">
+  <div class="col">
+    <div class="card mb-4">
+      <div class="card-header d-flex justify-content-center">
+        <h3 class="px-1" >내정보</h3>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li class="px-1" style="font-size: 24px">이름: </li>
+          <li class="px-1" style="font-size: 24px">이메일: </li>
+          <li class="px-1" style="font-size: 24px">아이디: </li>
+        </ul>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="card myPageBox">
-    <ul>
-      <li><p style="font-size: 40px">이름: </p></li>
-      <li><p style="font-size: 40px">이메일: </p></li>
-      <li><p style="font-size: 40px">아이디: </p></li>
-      <li>
-        <p style="font-size: 40px">관심사:
-          <div class="right">
-            <button type="button" class="btn">수정</button>
-          </div>
-        </p>
-      </li>
-    </ul>
+<div class="row px-1 py-1 mt-2">
+  <div class="col">
+    <div class="card mb-4" onclick="location.href='detail_page.jsp'">
+      <div class="card-header d-flex align-items-end">
+        <h4 class="px-1" >모집중</h4>
+        <h3 class="ms-3 px-1" >모임 제목</h3>
+      </div>
+      <div class="card-body">
+        <p class="me-1 list_detail"><span class="ms-5">지역</span></p>
+        <p class="px-5 py-3">본문 나가주세요</p>
+        <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="card writeBox">
-    <div class="wrap">
-      <p style="font-size: 32px">제목</p><hr>
-    </div>
-    <div class="wrap">
-      <p style="font-size: 24px">간단한 내용</p>
-    </div>
-  </div>
-
-  <div class="card writeBox">
-    <div class="wrap">
-      <p style="font-size: 32px">제목</p><hr>
-    </div>
-    <div class="wrap">
-      <p style="font-size: 24px">간단한 내용</p>
+<div class="row px-1 py-1 mt-2">
+  <div class="col">
+    <div class="card mb-4" onclick="location.href='detail_page.jsp'">
+      <div class="card-header d-flex align-items-end">
+        <h4 class="px-1" >모집중</h4>
+        <h3 class="ms-3 px-1" >모임 제목</h3>
+      </div>
+      <div class="card-body">
+        <p class="me-1 list_detail"><span class="ms-5">지역</span></p>
+        <p class="px-5 py-3">본문 나가주세요</p>
+        <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+      </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+<jsp:include page="footer.jsp"/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
