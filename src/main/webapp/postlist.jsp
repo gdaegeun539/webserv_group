@@ -41,14 +41,14 @@
                     aria-expanded="false"
             >
 <%--              동적 렌더링 필요부분: 컨트롤러에서 데이터 넘겨주는지 확인 필요 --%>
-              카테고리 제목
+              전체(카테고리 제목)
             </button>
             <ul class="dropdown-menu">
-              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리1')">카테고리1</li>
-              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리2')">카테고리2</li>
-              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리3')">카테고리3</li>
-              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리4')">카테고리4</li>
-              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리5')">카테고리5</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '공부')">공부</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '독서')">독서</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '식사')">식사</li>
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '운동')">운동</li>
+<%--              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리5')">카테고리5</li>--%>
             </ul>
           </div>
         </div>
@@ -66,11 +66,11 @@
       </div>
 
 <%--      동적 렌더링 필요부분: 컨트롤러 연동 후 테스트 필요 --%>
-        <c:forEach var="post" items="${posts}">
+        <c:forEach var="post" items="${Posts}">
             <div class="row px-1 py-1 mt-2">
                 <div class="col">
                     <div class="card mb-4 clickable-tag"
-                         onclick="onclick_link('post', 'detail', 'pid', 'el로 삽입예정');">
+                         onclick="onclick_link('post', 'detail', 'pid', ${post.getPid()});">
                         <div class="card-header d-flex align-items-end">
                             <h4 class="px-1" >
                                 <c:choose>

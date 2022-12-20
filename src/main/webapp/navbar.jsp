@@ -41,18 +41,18 @@ To change this template use File | Settings | File Templates.
                   class="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDropdown"
           >
-            <li><a class="dropdown-item" href="#">카테고리1</a></li>
-            <li><a class="dropdown-item" href="#">카테고리2</a></li>
+            <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=공부"/>">공부</a></li>
+            <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=독서"/>">독서</a></li>
 <%--            <li><hr class="dropdown-divider" /></li>--%>
-            <li><a class="dropdown-item" href="#">카테고리3</a></li>
-            <li><a class="dropdown-item" href="#">카테고리4</a></li>
-            <li><a class="dropdown-item" href="#">카테고리5</a></li>
+            <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=식사"/>">식사</a></li>
+            <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=운동"/>">운동</a></li>
+<%--            <li><a class="dropdown-item" href="#">카테고리5</a></li>--%>
           </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="<c:url value="/login.jsp"/>">로그인</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="">마이페이지</a></li>
+        <li class="nav-item"><a class="nav-link" href="<c:url value="/user?action=mypage&uid=세션으로관리"/>">마이페이지</a></li>
       </ul>
     </div>
   </div>
