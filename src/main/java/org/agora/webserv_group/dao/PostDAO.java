@@ -71,6 +71,54 @@ public class PostDAO {
         return posts.get(0);
     }
 
+    public void addPeople(Post post, String uid) throws SQLException {
+        Connection conn = connectionMaker.makeNewConnection();
+        int pid = post.getPid();
+        ArrayList<String> people = post.getPeople();
+
+        String updateSql = "UPDATE post SET people = ?, updated_at = CURRENT_TIMESTAMP() WHERE pid = ?";
+        PreparedStatement pstmt = conn.prepareStatement(updateSql);
+
+        try (conn; pstmt) {
+            pstmt.setString(1, gson.toJson(people.add(uid)));
+            pstmt.setInt(2, pid);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removePeople(Post post, String uid) throws SQLException {
+        Connection conn = connectionMaker.makeNewConnection();
+        int pid = post.getPid();
+        ArrayList<String> people = post.getPeople();
+
+        String updateSql = "UPDATE post SET people = ?, updated_at = CURRENT_TIMESTAMP() WHERE pid = ?";
+        PreparedStatement pstmt = conn.prepareStatement(updateSql);
+
+        try (conn; pstmt) {
+            pstmt.setString(1, gson.toJson(people.remove(uid)));
+            pstmt.setInt(2, pid);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void closePost(int pid) throws SQLException {
+        Connection conn = connectionMaker.makeNewConnection();
+
+        String updateSql = "UPDATE post SET is_end = false, updated_at = CURRENT_TIMESTAMP() WHERE pid = ?";
+        PreparedStatement pstmt = conn.prepareStatement(updateSql);
+
+        try (conn; pstmt) {
+            pstmt.setInt(1, pid);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Post> getPostsByCategory(String category) throws SQLException {
         Connection conn = connectionMaker.makeNewConnection();
         String sql = "select pid, writer, capacity, people, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as created_at, PARSEDATETIME(date,'yyyy-MM-dd HH:mm:ss.SSSSSS') as updated_at, category, title, introduction, content, location, is_end from post where category=?";
@@ -108,7 +156,7 @@ public class PostDAO {
     public void updatePost(Post post) throws SQLException {
         Connection conn = connectionMaker.makeNewConnection();
         int pid = post.getPid();
-        String updateSql = "UPDATE news SET title = ?, content = ?, date = CURRENT_TIMESTAMP() WHERE pid = ?";
+        String updateSql = "UPDATE post SET title = ?, content = ?, updated_at = CURRENT_TIMESTAMP() WHERE pid = ?";
         PreparedStatement pstmt = conn.prepareStatement(updateSql);
 
         try (conn; pstmt) {

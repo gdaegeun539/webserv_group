@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 
 @WebServlet(name = "PostController", value = "/post")
 public class PostController extends HttpServlet {
@@ -44,7 +43,7 @@ public class PostController extends HttpServlet {
 
         // action 파라미터 없이 접근한 경우
         if (action == null) {
-            action = "getPosts";
+            action = "category";
         }
 
         try {
@@ -78,7 +77,7 @@ public class PostController extends HttpServlet {
         String title = request.getParameter("title");
         try {
             List<Post> posts = dao.getPostsByTitle(title);
-            request.setAttribute("PostList", posts);
+            request.setAttribute("posts", posts);
         } catch (Exception e) {
             e.printStackTrace();
             ctx.log("게시물 목록 생성 과정에서 문제 발생!!");
@@ -91,12 +90,12 @@ public class PostController extends HttpServlet {
         String category = request.getParameter("category");
         try {
             List<Post> posts;
-            if (Objects.equals(category, "all")) {
+            if (category == "all" || category == "") {
                 posts = dao.getPosts();
             } else {
                 posts = dao.getPostsByCategory(category);
             }
-            request.setAttribute("PostList", posts);
+            request.setAttribute("posts", posts);
         } catch (Exception e) {
             e.printStackTrace();
             ctx.log("게시물 목록 생성 과정에서 문제 발생!!");
@@ -105,7 +104,7 @@ public class PostController extends HttpServlet {
         return "postlist.jsp";
     }
 
-    public String addPost(HttpServletRequest request) {
+    public String register(HttpServletRequest request) {
         Post post = new Post();
         try {
             BeanUtils.populate(post, request.getParameterMap());
@@ -114,40 +113,40 @@ public class PostController extends HttpServlet {
             e.printStackTrace();
             ctx.log("게시물 추가 과정에서 문제 발생!!");
             request.setAttribute("error", "게시물가 정상적으로 등록되지 않았습니다!!");
-            return getPosts(request);
+            return category(request);
         }
-
-        return "redirect:/post?action=getPosts";
-
+        return "detail_page.jsp";
     }
 
-    public String getPosts(HttpServletRequest request) {
-        List<Post> list;
+    public String edit(HttpServletRequest request) {
+        Post post = new Post();
         try {
-            list = dao.getPosts();
-            request.setAttribute("PostList", list);
+            BeanUtils.populate(post, request.getParameterMap());
+            dao.updatePost(post);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ctx.log("게시물 추가 과정에서 문제 발생!!");
+            request.setAttribute("error", "게시물가 정상적으로 등록되지 않았습니다!!");
+            return category(request);
+        }
+        request.setAttribute("pid", Integer.toString(post.getPid()));
+        return "detail_page.jsp";
+    }
+
+    public String detail(HttpServletRequest request) {
+        int pid = Integer.parseInt(request.getParameter("pid"));
+        try {
+            Post post = dao.getPostById(pid);
+            request.setAttribute("post", post);
         } catch (Exception e) {
             e.printStackTrace();
             ctx.log("게시물 목록 생성 과정에서 문제 발생!!");
             request.setAttribute("error", "게시물 목록이 정상적으로 처리되지 않았습니다!!");
         }
-        return "postlist.jsp";
-    }
-
-    public String getPost(HttpServletRequest request) {
-        int pid = Integer.parseInt(request.getParameter("pid"));
-        try {
-            Post post = dao.getPostById(pid);
-            request.setAttribute("Post", post);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            ctx.log("뉴스를 가져오는 과정에서 문제 발생!!");
-            request.setAttribute("error", "뉴스를 정상적으로 가져오지 못했습니다!!");
-        }
         return "detail_page.jsp";
     }
 
-    public String deletePost(HttpServletRequest request) {
+    public String delete(HttpServletRequest request) {
         int pid = Integer.parseInt(request.getParameter("pid"));
         try {
             dao.delPost(pid);
@@ -155,36 +154,59 @@ public class PostController extends HttpServlet {
             e.printStackTrace();
             ctx.log("뉴스 삭제 과정에서 문제 발생!!");
             request.setAttribute("error", "뉴스가 정상적으로 삭제되지 않았습니다!!");
-            return getPosts(request);
+            return category(request);
         }
 
-        return "redirect:/Post.nhn?action=getPosts";
+        return category(request);
     }
 
-    public String updatePost(HttpServletRequest request) {
-        Post inputPost = new Post();
-        try {
-            // 입력 Post
-            BeanUtils.populate(inputPost, request.getParameterMap());
-            int pid = inputPost.getPid();
-            // 현재 Post
-            Post nowPost = dao.getPostById(pid);
-            // 입력 Post 와 현재 Post 비교
-            if (inputPost.getTitle() == null) {
-                nowPost.setTitle(inputPost.getTitle());
-            }
-            if (inputPost.getContent() == null) {
-                nowPost.setTitle(inputPost.getContent());
-            }
+    public String join(HttpServletRequest request) {
+        int pid = Integer.parseInt(request.getParameter("pid"));
+        String uid = request.getParameter("uid");
 
-            dao.updatePost(nowPost);
-        } catch (Exception e) {
+        try {
+            Post post = dao.getPostById(pid);
+            dao.addPeople(post, uid);
+        } catch (SQLException e) {
             e.printStackTrace();
-            ctx.log("뉴스 수정 과정에서 문제 발생!!");
-            request.setAttribute("error", "뉴스가 정상적으로 수정되지 않았습니다!!");
-            return getPosts(request);
+            ctx.log("뉴스 삭제 과정에서 문제 발생!!");
+            request.setAttribute("error", "뉴스가 정상적으로 삭제되지 않았습니다!!");
+            return category(request);
         }
 
-        return "redirect:/Post.nhn?action=getPosts";
+        return detail(request);
+    }
+
+    public String exit(HttpServletRequest request) {
+        int pid = Integer.parseInt(request.getParameter("pid"));
+        String uid = request.getParameter("uid");
+
+        try {
+            Post post = dao.getPostById(pid);
+            dao.removePeople(post, uid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ctx.log("뉴스 삭제 과정에서 문제 발생!!");
+            request.setAttribute("error", "뉴스가 정상적으로 삭제되지 않았습니다!!");
+            return category(request);
+        }
+
+        return detail(request);
+    }
+
+    public String close(HttpServletRequest request) {
+        int pid = Integer.parseInt(request.getParameter("pid"));
+
+        try {
+            Post post = dao.getPostById(pid);
+            dao.closePost(pid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            ctx.log("뉴스 삭제 과정에서 문제 발생!!");
+            request.setAttribute("error", "뉴스가 정상적으로 삭제되지 않았습니다!!");
+            return category(request);
+        }
+
+        return detail(request);
     }
 }
