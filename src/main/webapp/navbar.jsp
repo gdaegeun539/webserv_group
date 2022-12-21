@@ -49,10 +49,24 @@ To change this template use File | Settings | File Templates.
 <%--            <li><a class="dropdown-item" href="#">카테고리5</a></li>--%>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<c:url value="/login.jsp"/>">로그인</a>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="<c:url value="/user?action=mypage&uid=세션으로관리"/>">마이페이지</a></li>
+        <c:choose>
+            <c:when test="${sessionScope.uid eq null}">
+<%--               세션이 없을 때 수행: 로그인 버튼 생성 --%>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="<c:url value="/login.jsp"/>">로그인</a>
+                </li>
+            </c:when>
+            <c:otherwise>
+<%--               세션이 있을 때 수행: 마이페이지 및 로그아웃 버튼 생성 --%>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/user?action=mypage&uid=${sessionScope.uid}"/>">마이페이지</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="<c:url value="del_session.jsp"/>">로그아웃</a>
+                </li>
+            </c:otherwise>
+        </c:choose>
+
       </ul>
     </div>
   </div>

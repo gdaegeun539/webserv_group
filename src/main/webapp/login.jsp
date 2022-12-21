@@ -1,12 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
+<% // 로그인 실패시 사용자에게 안내
+  if (request.getAttribute("login") != null || request.getAttribute("error") != null) { // 에러 파라미터 받을 경우 %>
+<script>
+  alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+</script>
+<% } %>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <title>템플릿테스트</title>
+  <title>아고라</title>
   <!-- Favicon-->
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Core theme CSS (includes Bootstrap)-->
@@ -31,12 +37,12 @@
         <div class="d-grid gap-2 col-6 mx-auto">
 <!-- 아이디, 비밀번호 입력 = 로그인 -->
           <div class="form-group mb-2">
-            <input type="text" class="form-control" placeholder="아이디" name="userID" maxlength="20">
+            <input type="text" class="form-control" id="input-id" placeholder="아이디" name="userID" maxlength="20">
           </div>
           <div class="form-group mb-3">
-            <input type="password" class="form-control" placeholder="비밀번호" name="userPassword" maxlength="20">
+            <input type="password" class="form-control" id="input-pwd" placeholder="비밀번호" name="userPassword" maxlength="20">
           </div>
-          <button type="button" class="btn btn-dark">로그인</button>
+          <button type="button" class="btn btn-dark" onclick="onclick_link_multi_val('user', 'login', ['uid', 'upw'], ['input-id', 'input-pwd'])">로그인</button>
 
           <div style="text-align: center;"><!-- 찾기 버튼 병렬 용 -->
 <!-- 아이디 찾기 버튼 -->
@@ -51,7 +57,7 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-floating mb-3">
-                      해당 이메일로 아이디 정보를 보네드립니다.
+                      해당 이메일로 아이디 정보를 보내드립니다.(구현중)
                     </div>
                     <div class="form-floating mb-3">
                       <input type="email" class="form-control" id="UserEmail" placeholder="name@example.com">
@@ -59,7 +65,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-dark">보네다</button>
+                    <button type="button" class="btn btn-dark">확인</button>
                   </div>
                 </div>
               </div>
@@ -77,7 +83,7 @@
                   </div>
                   <div class="modal-body">
                     <div class="form-floating mb-3">
-                      회원가입시 입력하셨던 이메일로 비밀번호 정보를 보네드립니다.
+                      회원가입시 입력하셨던 이메일로 비밀번호 정보를 보내드립니다.(구현중)
                     </div>
                     <div class="form-floating mb-3">
                       <input type="text" class="form-control" id="UserID" placeholder="ID">
@@ -85,7 +91,7 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-dark">보네다</button>
+                    <button type="button" class="btn btn-dark">확인</button>
                   </div>
                 </div>
               </div>
@@ -95,7 +101,7 @@
 <!-- 회원가입 버튼 -->
         <div class="d-grid gap-2 col-6 mx-auto">
           <hr>
-          <button type="button" class="btn btn-dark">회원가입</button>
+          <button type="button" class="btn btn-dark" onclick="onclick_static('SignUp.jsp')">회원가입</button>
         </div>
       </div>
     </div>
@@ -104,6 +110,8 @@
 </div>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/btn_link_func.js?ver=1"></script>
+<script src="js/login.js?ver=0"></script>
 
 </body>
 </html>

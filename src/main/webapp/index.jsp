@@ -37,7 +37,7 @@
     <div class="row gx-4 gx-lg-5">
         <div class="col-md-4 mb-5">
             <div class="card h-100">
-                <div class="card-body clickable-div" onclick="onclick_link('post', 'category', 'cname', '카테고리1');">
+                <div class="card-body clickable-tag" onclick="onclick_link('post', 'category', 'cname', '공부');">
                     <h2 class="card-title">공부</h2>
                     <p class="card-text">다양한 공부를 같이 해보세요.<br/>문학, 코딩, 전공 등등...</p>
                 </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
-                <div class="card-body">
+                <div class="card-body clickable-tag" onclick="onclick_link('post', 'category', 'cname', '독서');">
                     <h2 class="card-title">독서</h2>
                     <p class="card-text">책을 다함께 읽어 보아요.<br/>독서 토론도 가능합니다.</p>
                 </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
-                <div class="card-body">
+                <div class="card-body clickable-tag" onclick="onclick_link('post', 'category', 'cname', '식사');">
                     <h2 class="card-title">식사</h2>
                     <p class="card-text">다양한 분들과 다양한 음식을 먹어보세요.<br/>한식, 양식, 주류 등등...</p>
                 </div>
@@ -62,7 +62,7 @@
         </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
-                <div class="card-body">
+                <div class="card-body clickable-tag" onclick="onclick_link('post', 'category', 'cname', '운동');">
                     <h2 class="card-title">운동</h2>
                     <p class="card-text">어떤 운동이든 모집해 보세요.<br/>구기종목 같은 협력, PT같은 1:1운동 모두 좋습니다.</p>
                 </div>
@@ -82,7 +82,7 @@
 <jsp:include page="footer.jsp"/>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/index.js?ver=0"></script>
+<script src="js/btn_link_func.js?ver=0"></script>
 
 </body>
 </html>

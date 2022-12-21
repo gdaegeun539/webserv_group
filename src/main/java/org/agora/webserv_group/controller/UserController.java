@@ -104,13 +104,15 @@ public class UserController extends HttpServlet {
     }
 
 
-    public String login(HttpServletRequest request) { //수정 버튼 입력시 실행된다
+    public String login(HttpServletRequest request) { //로그인 버튼 입력시 실행된다
         String uid = request.getParameter("uid");
-        String password = request.getParameter("password");
+        String password = request.getParameter("upw");
+        System.out.println("password = " + password);
         try {
             boolean login = dao.login(uid,password);
             if(login){
-                request.setAttribute("login","로그인 되었습니다.");
+//                request.setAttribute("login","로그인 되었습니다.");
+                request.setAttribute("uid", uid);
             }
             else{
                 request.setAttribute("login","아이디 또는 비밀번호가 틀립니다.");
@@ -120,8 +122,10 @@ public class UserController extends HttpServlet {
             e.printStackTrace();
             ctx.log("로그인 과정에서 문제 발생!!");
             request.setAttribute("error", "로그인을 하지 못했습니다!!");
+            return "login.jsp"; // 세션세팅으로 가면 안됨
         }
-        return "index.jsp"; //db에 존재하는 경우
+//        return "index.jsp";
+        return "set_session.jsp"; //db에 존재하는 경우
     }
 
     public String findid(HttpServletRequest request) { //아이디 찾기 버튼 입력시 실행된다

@@ -36,7 +36,7 @@ public class UserDAO {
     }
 
     public void addUser(User user) throws SQLException {
-        String sql = "insert into user(uid,password,name,interest,admin) values(?,?,?,?,?)";
+        String sql = "insert into usertable(uid,password,name,interest,admin) values(?,?,?,?,?)";
         String sqlEmail = "insert into usertable(email) values(?)";
         conn = connectionMaker.makeNewConnection();
         String emailPattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
@@ -93,7 +93,9 @@ public class UserDAO {
             pstmt.setString(1,uid);
             pstmt.setString(2,password);
             ResultSet rs = pstmt.executeQuery();
-            if(rs == null){ return false;}
+            if( !rs.isBeforeFirst() ){ // 쿼리 rs가 비었는지 판단
+                return false;
+            }
         }catch(SQLException e){
             e.printStackTrace();
         }finally{

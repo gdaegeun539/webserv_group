@@ -66,7 +66,7 @@
       </div>
 
 <%--      동적 렌더링 필요부분: 컨트롤러 연동 후 테스트 필요 --%>
-        <c:forEach var="post" items="${Posts}">
+        <c:forEach var="post" items="${posts}">
             <div class="row px-1 py-1 mt-2">
                 <div class="col">
                     <div class="card mb-4 clickable-tag"
@@ -97,23 +97,6 @@
             </div>
         </c:forEach>
 
-<%--      <div class="row px-1 py-1 mt-2">--%>
-<%--        <div class="col">--%>
-<%--          <div class="card mb-4">--%>
-<%--            <div class="card-header d-flex align-items-end">--%>
-<%--              <h4 class="px-1" >모집중</h4>--%>
-<%--              <h3 class="ms-3 px-1" >모임 제목</h3>--%>
-<%--            </div>--%>
-<%--            <div class="card-body">--%>
-<%--&lt;%&ndash;              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>&ndash;%&gt;--%>
-<%--                <p class="me-1 list_detail"><span>지역</span></p>--%>
-<%--              <p class="px-5 py-3">본문 나가주세요</p>--%>
-<%--              <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>--%>
-<%--            </div>--%>
-<%--          </div>--%>
-<%--        </div>--%>
-<%--      </div>--%>
-
       <%-- Pagination --%>
       <nav aria-label="Pagination">
         <hr class="my-0" />
@@ -133,6 +116,6 @@
     <jsp:include page="footer.jsp"/>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/postlist.js?ver=0"></script>
+    <script src="js/btn_link_func.js?ver=0"></script>
   </body>
 </html>
