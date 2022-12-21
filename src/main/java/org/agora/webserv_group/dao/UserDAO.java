@@ -36,24 +36,15 @@ public class UserDAO {
     }
 
     public void addUser(User user) throws SQLException {
-        String sql = "insert into usertable(uid,password,name,interest,admin) values(?,?,?,?,?)";
-        String sqlEmail = "insert into usertable(email) values(?)";
+        String sql = "insert into usertable(uid,password,name,email,admin) values(?,?,?,?,'FALSE')";
         conn = connectionMaker.makeNewConnection();
-        String emailPattern = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
         try{
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1,user.getUid());
             pstmt.setString(2,user.getPassword());
             pstmt.setString(3,user.getName());
-            pstmt.setString(4,user.getInterest());
-            pstmt.setBoolean(5,user.getAdmin());
+            pstmt.setString(4,user.getEmail());
             pstmt.executeUpdate();
-
-            if(Pattern.matches(emailPattern,user.getEmail())) { //이메일 형식이 맞으면 데이터베이스에 이메일 저장
-                pstmt = conn.prepareStatement(sqlEmail);
-                pstmt.setString(1,user.getEmail());
-                pstmt.executeUpdate();
-            }
         } catch(SQLException e){
             e.printStackTrace();
         } finally{

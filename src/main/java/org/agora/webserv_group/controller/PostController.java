@@ -110,7 +110,6 @@ public class PostController extends HttpServlet {
         String writer = request.getParameter("writer");
         ArrayList<String> people = new ArrayList<>();
         people.add(writer);
-        System.out.println(people);
         try {
             BeanUtils.populate(post, request.getParameterMap());
             post.setPeople(people);
