@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -18,27 +19,27 @@
     <div class="card mb-4">
       <div class="card-header d-flex align-items-end">
         <h4 class="px-1" >모집중</h4>
-        <h3 class="ms-3 px-1" >모임 제목</h3>
+        <h3 class="ms-3 px-1" >${post.title}</h3>
       </div>
       <div class="card-body">
-        <p class="me-1 list_detail"><span class="ms-5">지역</span></p>
-        <p class="px-5 py-3">본문 나가주세요</p>
-        <p class="d-flex justify-content-between align-self-end list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+        <p class="me-1 list_detail"><span class="ms-5">${post.location}</span></p>
+        <p class="px-5 py-3">${post.content}</p>
+        <p class="d-flex justify-content-between align-self-end list_detail"><span>${post.people.size()}/${post.capacity}명</span><span>${post.updated_at}</span></p>
       </div>
     </div>
   </div>
 </div>
 
 <div class="d-flex justify-content-end">
-  <form style="float:right;" action="postmodify.jsp">
+  <form style="float:right;" action="<c:url value="/post?action=editbtn&pid=${post.pid}"/>">
     <%--   수정 후 제목, 내용,    --%>
     <button class="btn" style="font-size: 18px" >수정</button>
   </form>
-  <form style="float:right;" action="postlist.jsp">
+  <form style="float:right;" action="<c:url value="/post?action=delete"/>">
     <%--   삭제 후 목록 페이지   --%>
     <button class="btn" style="font-size: 18px">삭제</button>
   </form>
-  <form style="float:right;" action="detail_page.jsp">
+  <form style="float:right;" action="<c:url value="/post?action=close"/>">
     <%--   종료 시 모집 중 -> 모집 종료 표시   --%>
     <button class="btn" style="font-size: 18px">종료</button>
   </form>

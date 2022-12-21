@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "PostController", value = "/post")
@@ -87,7 +88,7 @@ public class PostController extends HttpServlet {
     }
 
     public String category(HttpServletRequest request) {
-        String category = request.getParameter("category");
+        String category = request.getParameter("cname");
         try {
             List<Post> posts;
             if (category == "all" || category == "") {
@@ -106,9 +107,15 @@ public class PostController extends HttpServlet {
 
     public String register(HttpServletRequest request) {
         Post post = new Post();
+        String writer = request.getParameter("writer");
+        ArrayList<String> people = new ArrayList<>();
+        people.add(writer);
+        System.out.println(people);
         try {
             BeanUtils.populate(post, request.getParameterMap());
+            post.setPeople(people);
             dao.addPost(post);
+            request.setAttribute("post", post);
         } catch (Exception e) {
             e.printStackTrace();
             ctx.log("게시물 추가 과정에서 문제 발생!!");

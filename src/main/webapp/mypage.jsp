@@ -31,31 +31,30 @@
 
 <div class="row px-1 py-1 mt-2">
   <div class="col">
-    <div class="card mb-4" onclick="location.href='detail_page.jsp'">
+    <div class="card mb-4" onclick="<c:url value="/post?action=detail"/>">
       <div class="card-header d-flex align-items-end">
         <h4 class="px-1" >모집중</h4>
-        <h3 class="ms-3 px-1" >모임 제목</h3>
+        <h3 class="ms-3 px-1" >${Post.title}</h3>
       </div>
       <div class="card-body">
-        <p class="me-1 list_detail"><span class="ms-5">지역</span></p>
-        <p class="px-5 py-3">본문 나가주세요</p>
-        <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+        <p class="me-1 list_detail"><span class="ms-5">${Post.location}</span></p>
+        <p class="px-5 py-3">${Post.content}</p>
+        <p class="d-flex justify-content-between align-self-end list_detail"><span>${Post.people.size}/${Post.capacity}명</span><span>${Post.updated_at}</span></p>
       </div>
     </div>
   </div>
 </div>
-
 <div class="row px-1 py-1 mt-2">
   <div class="col">
-    <div class="card mb-4" onclick="location.href='detail_page.jsp'">
+    <div class="card mb-4" onclick="<c:url value="/post?action=detail"/>">
       <div class="card-header d-flex align-items-end">
         <h4 class="px-1" >모집중</h4>
-        <h3 class="ms-3 px-1" >모임 제목</h3>
+        <h3 class="ms-3 px-1" >${Post.title}</h3>
       </div>
       <div class="card-body">
-        <p class="me-1 list_detail"><span class="ms-5">지역</span></p>
-        <p class="px-5 py-3">본문 나가주세요</p>
-        <p class="d-flex justify-content-between list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+        <p class="me-1 list_detail"><span class="ms-5">${Post.location}</span></p>
+        <p class="px-5 py-3">${Post.content}</p>
+        <p class="d-flex justify-content-between align-self-end list_detail"><span>${Post.people.size}/${Post.capacity}명</span><span>${Post.updated_at}</span></p>
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <head>
@@ -16,20 +17,20 @@
     <div class="card mb-4">
       <div class="card-header d-flex align-items-end">
         <h4 class="px-1" >모집중</h4>
-        <h3 class="ms-3 px-1" >모임 제목</h3>
+        <h3 class="ms-3 px-1" >${post.title}</h3>
       </div>
       <div class="card-body">
         <ul>
-          <p class="me-1 list_detail"><span class="ms-5">지역</span></p>
-          <textarea cols="50" rows="10" name="content" class="form-control" placeholder="내용 입력"></textarea>
-          <p class="d-flex justify-content-between align-self-end list_detail"><span>?/??명</span><span>??년??월??일</span></p>
+          <p class="me-1 list_detail"><span class="ms-5">${post.location}</span></p>
+          <textarea cols="50" rows="10" name="content" class="form-control" placeholder="내용 입력">${post.content}</textarea>
+          <p class="d-flex justify-content-between align-self-end list_detail"><span>${post.people.size}/${post.capacity}명</span><span>${post.updated_at}</span></p>
         </ul>
       </div>
     </div>
   </div>
 </div>
 <div class="d-flex justify-content-end">
-  <form style="float:right;" action="detail_page.jsp">
+  <form style="float:right;" action="<c:url value="/post?action=edit"/>">
     <button class="btn" style="font-size: 18px" type="submit">완료</button>
   </form>
   <form style="float:right;" action="javascript:history.back()">
