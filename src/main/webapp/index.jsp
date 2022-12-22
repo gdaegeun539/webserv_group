@@ -33,8 +33,16 @@
             </div>
         </div>
     </div>
-    <%--  게시글 목록들: 나중에 jstl 이용해 동적으로 생성  --%>
+    <%--  카테고리 목록들  --%>
     <div class="row gx-4 gx-lg-5">
+        <div class="col-md-4 mb-5">
+            <div class="card h-100">
+                <div class="card-body clickable-tag" onclick="onclick_link('post', 'category', 'cname', 'all');">
+                    <h2 class="card-title">전체</h2>
+                    <p class="card-text">어떤 모임들이 있나 먼저 둘러보세요.<br/>다양한 분들이 모집하는 다양한 모임들이 있습니다.</p>
+                </div>
+            </div>
+        </div>
         <div class="col-md-4 mb-5">
             <div class="card h-100">
                 <div class="card-body clickable-tag" onclick="onclick_link('post', 'category', 'cname', '공부');">
@@ -68,14 +76,6 @@
                 </div>
             </div>
         </div>
-<%--        <div class="col-md-4 mb-5">--%>
-<%--            <div class="card h-100">--%>
-<%--                <div class="card-body">--%>
-<%--                    <h2 class="card-title">카테고리5</h2>--%>
-<%--                    <p class="card-text">카테고리의 설명이 들어가는 자리입니다.</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
 
     </div>
 </div>

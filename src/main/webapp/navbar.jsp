@@ -41,12 +41,12 @@ To change this template use File | Settings | File Templates.
                   class="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDropdown"
           >
+            <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=all"/>">전체</a></li>
             <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=공부"/>">공부</a></li>
             <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=독서"/>">독서</a></li>
 <%--            <li><hr class="dropdown-divider" /></li>--%>
             <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=식사"/>">식사</a></li>
             <li><a class="dropdown-item" href="<c:url value="/post?action=category&cname=운동"/>">운동</a></li>
-<%--            <li><a class="dropdown-item" href="#">카테고리5</a></li>--%>
           </ul>
         </li>
         <c:choose>

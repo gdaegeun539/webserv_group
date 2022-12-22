@@ -40,15 +40,14 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
             >
-<%--              동적 렌더링 필요부분: 컨트롤러에서 데이터 넘겨주는지 확인 필요 --%>
-              전체(카테고리 제목)
+                ${category}
             </button>
             <ul class="dropdown-menu">
+              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', 'all')">전체</li>
               <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '공부')">공부</li>
               <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '독서')">독서</li>
               <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '식사')">식사</li>
               <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '운동')">운동</li>
-<%--              <li class="clickable-tag" onclick="onclick_link('post', 'category', 'cname', '카테고리5')">카테고리5</li>--%>
             </ul>
           </div>
         </div>
@@ -65,7 +64,7 @@
 
       </div>
 
-<%--      동적 렌더링 필요부분: 컨트롤러 연동 후 테스트 필요 --%>
+<%-- 게시글 동적 렌더링 --%>
         <c:forEach var="post" items="${posts}">
             <div class="row px-1 py-1 mt-2">
                 <div class="col">
@@ -85,11 +84,10 @@
                             <h3 class="ms-3 px-1" >${post.getTitle()}</h3>
                         </div>
                         <div class="card-body">
-                                <%--              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>--%>
                             <p class="me-1 list_detail"><span>${post.getLocation()}</span></p>
                             <p class="px-5 py-3">${post.getIntroduction()}</p>
                             <p class="d-flex justify-content-between list_detail">
-                                <span>${post.getPeople().size()}/${post.getCapacity()}명</span><span>??년??월??일(DB에 정보여부?)</span>
+                                <span>${post.getPeople().size()}/${post.getCapacity()}명</span><span>${post.getCreated_at()}</span>
                             </p>
                         </div>
                     </div>
@@ -98,18 +96,18 @@
         </c:forEach>
 
       <%-- Pagination --%>
-      <nav aria-label="Pagination">
-        <hr class="my-0" />
-        <ul class="pagination justify-content-center my-4">
-          <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;&lt;</a></li>
-          <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item disabled"><a class="page-link" href="#">번호 동적 생성</a></li>
-          <li class="page-item"><a class="page-link" href="#">15</a></li>
-          <li class="page-item"><a class="page-link" href="#">&gt;&gt;</a></li>
-        </ul>
-      </nav>
+<%--      <nav aria-label="Pagination">--%>
+<%--        <hr class="my-0" />--%>
+<%--        <ul class="pagination justify-content-center my-4">--%>
+<%--          <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;&lt;</a></li>--%>
+<%--          <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>--%>
+<%--          <li class="page-item"><a class="page-link" href="#">2</a></li>--%>
+<%--          <li class="page-item"><a class="page-link" href="#">3</a></li>--%>
+<%--          <li class="page-item disabled"><a class="page-link" href="#">번호 동적 생성</a></li>--%>
+<%--          <li class="page-item"><a class="page-link" href="#">15</a></li>--%>
+<%--          <li class="page-item"><a class="page-link" href="#">&gt;&gt;</a></li>--%>
+<%--        </ul>--%>
+<%--      </nav>--%>
 
     </div>
 

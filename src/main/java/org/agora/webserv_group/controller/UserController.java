@@ -107,7 +107,6 @@ public class UserController extends HttpServlet {
     public String login(HttpServletRequest request) { //로그인 버튼 입력시 실행된다
         String uid = request.getParameter("uid");
         String password = request.getParameter("upw");
-        System.out.println("password = " + password);
         try {
             boolean login = dao.login(uid,password);
             if(login){

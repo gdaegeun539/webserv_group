@@ -59,12 +59,13 @@ public class PostDAO {
 
     public List<Post> getPostsByTitle(String title) throws SQLException {
         Connection conn = connectionMaker.makeNewConnection();
+
         String sql = "select pid, writer, capacity, people, PARSEDATETIME(created_at,'yyyy-MM-dd HH:mm:ss') as created_at, PARSEDATETIME(updated_at,'yyyy-MM-dd HH:mm:ss') as updated_at, category, title, introduction, content, location, is_end from post where title=?";
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, title);
         ResultSet rs = pstmt.executeQuery();
-        List<Post> posts = getPostsFromRs(rs);
 
+        List<Post> posts = getPostsFromRs(rs);
         return posts;
     }
 
@@ -76,7 +77,6 @@ public class PostDAO {
         pstmt.setInt(1, pid);
         ResultSet rs = pstmt.executeQuery();
         List<Post> posts = getPostsFromRs(rs);
-        System.out.println(posts);
 
         return posts.get(0);
     }
@@ -170,8 +170,6 @@ public class PostDAO {
     public void updatePost(Post post) throws SQLException {
         Connection conn = connectionMaker.makeNewConnection();
         int pid = post.getPid();
-        System.out.println(post);
-        System.out.println(pid);
         String updateSql = "UPDATE post SET title = ?, content = ?, updated_at = CURRENT_TIMESTAMP(0) WHERE pid = ?";
         PreparedStatement pstmt = conn.prepareStatement(updateSql);
 
@@ -216,7 +214,6 @@ public class PostDAO {
                 post.setCreated_at(rs.getString("created_at"));
                 post.setUpdated_at(rs.getString("updated_at"));
                 post.setIs_end(rs.getBoolean("is_end"));
-                System.out.println(post);
                 posts.add(post);
             }
             return posts;
