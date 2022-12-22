@@ -66,7 +66,6 @@ public class UserDAO {
             u.setPassword(rs.getString("password"));
             u.setName(rs.getString("name"));
             u.setEmail(rs.getString("email"));
-            u.setInterest(rs.getString("interest"));
             u.setAdmin(rs.getBoolean("admin"));
         } catch (SQLException e) {
             e.printStackTrace();

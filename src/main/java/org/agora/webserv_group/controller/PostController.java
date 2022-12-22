@@ -91,7 +91,7 @@ public class PostController extends HttpServlet {
         String category = request.getParameter("cname");
         try {
             List<Post> posts;
-            if (category == "all" || category == "") {
+            if (category == "all" || category == null) {
                 posts = dao.getPosts();
             } else {
                 posts = dao.getPostsByCategory(category);
@@ -114,6 +114,8 @@ public class PostController extends HttpServlet {
             BeanUtils.populate(post, request.getParameterMap());
             post.setPeople(people);
             dao.addPost(post);
+            int pid = dao.getLastId();
+            post = dao.getPostById(pid);
             request.setAttribute("post", post);
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,17 +127,22 @@ public class PostController extends HttpServlet {
     }
 
     public String edit(HttpServletRequest request) {
+        System.out.println("wow");
         Post post = new Post();
+
         try {
             BeanUtils.populate(post, request.getParameterMap());
+            System.out.println(post);
             dao.updatePost(post);
+            post = dao.getPostById(post.getPid());
+
+            request.setAttribute("post", post);
         } catch (Exception e) {
             e.printStackTrace();
             ctx.log("게시물 추가 과정에서 문제 발생!!");
             request.setAttribute("error", "게시물가 정상적으로 등록되지 않았습니다!!");
             return category(request);
         }
-        request.setAttribute("pid", Integer.toString(post.getPid()));
         return "detail_page.jsp";
     }
 
@@ -154,6 +161,7 @@ public class PostController extends HttpServlet {
 
     public String delete(HttpServletRequest request) {
         int pid = Integer.parseInt(request.getParameter("pid"));
+        System.out.println(pid);
         try {
             dao.delPost(pid);
         } catch (SQLException e) {
@@ -204,8 +212,10 @@ public class PostController extends HttpServlet {
         int pid = Integer.parseInt(request.getParameter("pid"));
 
         try {
+            System.out.println(1);
             Post post = dao.getPostById(pid);
             dao.closePost(pid);
+            System.out.println(1);
         } catch (SQLException e) {
             e.printStackTrace();
             ctx.log("뉴스 삭제 과정에서 문제 발생!!");

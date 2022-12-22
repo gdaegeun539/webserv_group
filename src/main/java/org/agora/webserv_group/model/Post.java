@@ -11,8 +11,8 @@ public class Post {
     private String writer;
     private int capacity;
     private ArrayList<String> people;
-    private Date created_at;
-    private Date updated_at;
+    private String created_at;
+    private String updated_at;
     private String category;
     private String title;
     private String introduction;
