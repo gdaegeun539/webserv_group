@@ -46,14 +46,14 @@
               </c:otherwise>
             </c:choose>
           </h4>
-          <h3 class="ms-3 px-1" >${post.title()}</h3>
+          <h3 class="ms-3 px-1" >${post.getTitle()}</h3>
         </div>
         <div class="card-body">
             <%--              <p class="me-1 list_detail"><span class="me-3">모집종료날짜</span><span class="ms-5">지역</span></p>--%>
           <p class="me-1 list_detail"><span>${post.location}</span></p>
           <p class="px-5 py-3">${post.introduction}</p>
           <p class="d-flex justify-content-between list_detail">
-            <span>${post.people.size()}/${post.capacity}명</span><span>??년??월??일(DB에 정보여부?)</span>
+            <span>${post.people.size()}/${post.capacity}명</span><span>${post.getCreated_at()}</span>
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@
           <p class="me-1 list_detail"><span>${post.getLocation()}</span></p>
           <p class="px-5 py-3">${post.getIntroduction()}</p>
           <p class="d-flex justify-content-between list_detail">
-            <span>${post.getPeople().size()}/${post.getCapacity()}명</span><span>??년??월??일(DB에 정보여부?)</span>
+            <span>${post.getPeople().size()}/${post.getCapacity()}명</span><span>${post.getCreated_at()}</span>
           </p>
         </div>
       </div>
